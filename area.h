@@ -20,6 +20,6 @@ public:
     // get polygon by id.
     Polygon* get(int id);
 private:
-    // area id AND poly pairs.
+    // area id AND polygon pairs.
     std::unordered_map<int, std::unique_ptr<Polygon> > areaMap_;
 };
