@@ -20,7 +20,7 @@ struct LineSegment {
 typedef vector<Point> Polygon;
 
 
-// cross product  |P0P1| ¡Á |P0P2|
+// cross product  |P0P1| Â¡Ã |P0P2|
 static double Multiply(const Point& p1, const Point& p2, const Point& p0) {
     return ((p1.x - p0.x) * (p2.y - p0.y) - (p2.x - p0.x) * (p1.y - p0.y));
 }
@@ -90,4 +90,25 @@ static bool InPolygon(const Polygon& polygon, const Point& point) {
     }
 
     return (count % 2 == 1);
+}
+#define EARTH_RADIUS (6378137)
+#define RAD          (3.14159265/180.0)
+
+static double distance(double lat1, double lng1, double lat2, double lng2) {
+    double radLat1 = lat1 * RAD;
+    double radLat2 = lat2 * RAD;
+    double a = radLat1 - radLat2;
+    double b = (lng1 - lng2) * RAD;
+
+    double s = 2
+        * asin(
+        sqrt(
+        pow(sin(a / 2), 2)
+        + cos(radLat1) * cos(radLat2)
+        * pow(sin(b / 2), 2)));
+    return s * EARTH_RADIUS;
+}
+
+static bool radius(const Point& src, const Point& dst, int len) {
+    return distance(src.x, src.y, dst.x, dst.y,) >= len;
 }
