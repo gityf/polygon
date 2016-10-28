@@ -8,7 +8,7 @@
 #pragma once
 #include <unordered_map>
 #include <memory>
-#include "isinpolygon.h"
+#include "polygon.h"
 
 // Area item
 class Area {

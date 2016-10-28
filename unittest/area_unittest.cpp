@@ -417,3 +417,41 @@ TEST(AreaTest, BasicAreaOflN) {
     p.y = 5.1;
     EXPECT_EQ(true, InPolygon(*areas, p));
 }
+
+TEST(AreaTest, point2SegDist) {
+    Point A;
+    Point B;
+    Point C;
+    A.x = 1;
+    A.y = 1;
+    B.x = 5;
+    B.y = 1;
+    C.x = 1;
+    C.y = 3;
+    EXPECT_EQ(2, point2SegDist(A,B,C));
+    C.x = 5;
+    C.y = 3;
+    EXPECT_EQ(2, point2SegDist(A,B,C));
+    C.x = 0;
+    C.y = 3;
+    EXPECT_LT(point2SegDist(A,B,C) - 2.23607, 0.000001);
+    EXPECT_GT(point2SegDist(A,B,C) - 2.23607, -0.000001);
+    C.x = 6;
+    C.y = 3;
+    EXPECT_LT(point2SegDist(A,B,C) - 2.23607, 0.000001);
+    EXPECT_GT(point2SegDist(A,B,C) - 2.23607, -0.000001);
+    C.x = 3;
+    C.y = 3;
+    EXPECT_EQ(2, point2SegDist(A,B,C));
+    C.x = 3;
+    C.y = -2;
+    EXPECT_EQ(3, point2SegDist(A,B,C));
+    C.x = 0;
+    C.y = -1;
+    EXPECT_LT(point2SegDist(A,B,C) - 2.23607, 0.000001);
+    EXPECT_GT(point2SegDist(A,B,C) - 2.23607, -0.000001);
+    C.x = 6;
+    C.y = -1;
+    EXPECT_LT(point2SegDist(A,B,C) - 2.23607, 0.000001);
+    EXPECT_GT(point2SegDist(A,B,C) - 2.23607, -0.000001);
+}
